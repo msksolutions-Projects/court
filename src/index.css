@@ -17,6 +17,7 @@ body {
   background-color: #F6F5FC;
   color: #1E1B33;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {

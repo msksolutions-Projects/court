@@ -68,7 +68,7 @@ export function Dashboard() {
       />
 
       {/* KPI Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
         <KpiCard icon={Users} label="Total Clients" value={totalClients} trend={8} accent="navy" />
         <KpiCard icon={Briefcase} label="Total Cases" value={totalCases} trend={12} accent="gold" />
         <KpiCard icon={CheckCircle2} label="Active Cases" value={activeCases} trend={5} accent="emerald" />

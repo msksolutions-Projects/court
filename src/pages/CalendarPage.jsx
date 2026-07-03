@@ -52,9 +52,9 @@ export function CalendarPage() {
       <PageHeader title="Calendar" />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <Card className="lg:col-span-2 p-4">
-          <div className="flex items-center justify-between mb-4">
-            <p className="text-base font-semibold text-ink font-serif">{format(currentMonth, "MMMM yyyy")}</p>
+        <Card className="lg:col-span-2 p-2.5 sm:p-4">
+          <div className="flex items-center justify-between mb-4 px-1">
+            <p className="text-sm sm:text-base font-semibold text-ink font-serif">{format(currentMonth, "MMMM yyyy")}</p>
             <div className="flex items-center gap-1">
               <button
                 onClick={() => setCurrentMonth((m) => subMonths(m, 1))}
@@ -73,13 +73,14 @@ export function CalendarPage() {
 
           <div className="grid grid-cols-7 text-center mb-1">
             {weekDays.map((d) => (
-              <div key={d} className="text-[11px] font-semibold text-muted py-2 uppercase tracking-wide">
-                {d}
+              <div key={d} className="text-[10px] sm:text-[11px] font-semibold text-muted py-2 uppercase tracking-wide">
+                <span className="sm:hidden">{d.slice(0, 1)}</span>
+                <span className="hidden sm:inline">{d}</span>
               </div>
             ))}
           </div>
 
-          <div className="grid grid-cols-7 gap-1">
+          <div className="grid grid-cols-7 gap-0.5 sm:gap-1">
             {days.map((day, idx) => {
               const dayEvents = eventsForDay(day);
               const inMonth = isSameMonth(day, currentMonth);
@@ -89,15 +90,30 @@ export function CalendarPage() {
                   key={idx}
                   onClick={() => setSelectedDay(day)}
                   className={cn(
-                    "min-h-[70px] sm:min-h-[84px] rounded-md border p-1.5 text-left flex flex-col gap-1 transition-colors",
+                    "min-h-[52px] sm:min-h-[84px] rounded-md border p-1 sm:p-1.5 text-left flex flex-col gap-0.5 sm:gap-1 transition-colors",
                     isSelected ? "border-gold bg-gold-50" : "border-border hover:border-navy-200",
                     !inMonth && "opacity-40"
                   )}
                 >
-                  <span className={cn("text-xs font-medium", isSelected ? "text-gold-dark" : "text-ink")}>
+                  <span className={cn("text-[11px] sm:text-xs font-medium", isSelected ? "text-gold-dark" : "text-ink")}>
                     {format(day, "d")}
                   </span>
-                  <div className="flex flex-col gap-0.5">
+                  {/* Mobile: just a dot indicator to save space */}
+                  {dayEvents.length > 0 && (
+                    <span className="sm:hidden flex gap-0.5 flex-wrap">
+                      {dayEvents.slice(0, 3).map((ev, i) => (
+                        <span
+                          key={i}
+                          className={cn(
+                            "h-1.5 w-1.5 rounded-full",
+                            ev.kind === "hearing" ? "bg-navy-700" : "bg-gold"
+                          )}
+                        />
+                      ))}
+                    </span>
+                  )}
+                  {/* Desktop: labeled pills */}
+                  <div className="hidden sm:flex flex-col gap-0.5">
                     {dayEvents.slice(0, 2).map((ev, i) => (
                       <span
                         key={i}

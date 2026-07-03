@@ -147,15 +147,15 @@ export function Settings() {
           <CardHeader><CardTitle>Role Management</CardTitle></CardHeader>
           <CardContent className="p-0">
             {team.map((member, i) => (
-              <div key={i} className="flex items-center gap-4 px-5 py-4 border-b border-border last:border-0">
+              <div key={i} className="flex flex-wrap sm:flex-nowrap items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 border-b border-border last:border-0">
                 <Avatar name={member.name} size="md" />
-                <div className="flex-1">
+                <div className="flex-1 min-w-[120px]">
                   <p className="text-sm font-medium text-ink">{member.name}</p>
                   <p className="text-xs text-muted">{member.role}</p>
                 </div>
-                <span className="text-xs text-muted hidden sm:block">{member.access}</span>
+                <span className="text-xs text-muted hidden lg:block shrink-0">{member.access}</span>
                 <StatusBadge status={member.status} />
-                <Button size="sm" variant="outline">Manage</Button>
+                <Button size="sm" variant="outline" className="shrink-0">Manage</Button>
               </div>
             ))}
             <div className="px-5 py-4">

@@ -10,19 +10,19 @@ export function Topbar({ onMenuClick, pageTitle }) {
   const navigate = useNavigate();
 
   return (
-    <header className="sticky top-0 z-20 h-16 bg-white/70 backdrop-blur-md border-b border-border flex items-center gap-4 px-4 lg:px-6 shrink-0">
+    <header className="sticky top-0 z-20 h-16 bg-white/70 backdrop-blur-md border-b border-border flex items-center gap-2 sm:gap-4 px-3 sm:px-4 lg:px-6 shrink-0">
       <button
         onClick={onMenuClick}
-        className="lg:hidden text-navy-700 hover:bg-navy-50 rounded-md p-2"
+        className="lg:hidden shrink-0 text-navy hover:bg-navy-50 rounded-md p-2 -ml-1"
       >
         <Menu size={20} />
       </button>
 
-      <div className="hidden lg:block">
-        <p className="text-sm font-semibold text-ink">{pageTitle}</p>
+      <div className="flex-1 min-w-0 lg:flex-none">
+        <p className="text-sm font-semibold text-ink font-display truncate">{pageTitle}</p>
       </div>
 
-      <div className="flex-1 max-w-md ml-0 lg:ml-4">
+      <div className="flex-1 max-w-md ml-0 lg:ml-4 hidden sm:block">
         <div className="relative">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
@@ -32,6 +32,10 @@ export function Topbar({ onMenuClick, pageTitle }) {
           />
         </div>
       </div>
+
+      <button className="sm:hidden h-9 w-9 flex items-center justify-center rounded-md hover:bg-navy-50 text-navy shrink-0 ml-auto">
+        <Search size={18} />
+      </button>
 
       <div className="flex items-center gap-2 ml-auto">
         <Dropdown

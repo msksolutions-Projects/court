@@ -181,7 +181,7 @@ export function Sidebar({ mobileOpen, onCloseMobile }) {
       )}
       <aside
         className={cn(
-          "fixed lg:sticky top-0 left-0 h-screen w-[268px] bg-sidebar-gradient flex flex-col z-40 transition-transform duration-200 shrink-0 relative overflow-hidden",
+          "fixed lg:sticky top-0 left-0 h-screen w-[268px] bg-sidebar-gradient flex flex-col z-40 transition-transform duration-200 shrink-0 overflow-hidden",
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
       >

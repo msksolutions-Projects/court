@@ -78,61 +78,111 @@ export function CaseList() {
             }
           />
         ) : (
-          <Table>
-            <THead>
-              <TR>
-                <TH>Case Number</TH>
-                <TH>Client</TH>
-                <TH>Court</TH>
-                <TH>Case Type</TH>
-                <TH>Status</TH>
-                <TH>Next Hearing</TH>
-                <TH className="text-right">Actions</TH>
-              </TR>
-            </THead>
-            <TBody>
+          <>
+            {/* Mobile card list */}
+            <div className="sm:hidden flex flex-col divide-y divide-border">
               {filtered.map((c) => (
-                <TR key={c.id}>
-                  <TD>
-                    <p className="font-medium text-ink">{c.caseNumber}</p>
-                    <p className="text-xs text-muted truncate max-w-[200px]">{c.title}</p>
-                  </TD>
-                  <TD className="text-muted">{c.clientName}</TD>
-                  <TD className="text-muted">{c.court}</TD>
-                  <TD className="text-muted">{c.caseType}</TD>
-                  <TD><StatusBadge status={c.status} /></TD>
-                  <TD className="text-muted">
-                    {c.nextHearing ? format(parseISO(c.nextHearing), "d MMM yyyy") : "—"}
-                  </TD>
-                  <TD>
-                    <div className="flex items-center justify-end gap-1">
-                      <button
-                        onClick={() => navigate(`/cases/${c.id}`)}
-                        className="p-1.5 rounded-md hover:bg-navy-50 text-navy-700"
-                        title="View"
-                      >
-                        <Eye size={15} />
-                      </button>
-                      <button
-                        onClick={() => navigate(`/cases/${c.id}?edit=true`)}
-                        className="p-1.5 rounded-md hover:bg-navy-50 text-navy-700"
-                        title="Edit"
-                      >
-                        <Pencil size={15} />
-                      </button>
-                      <button
-                        onClick={() => setDeleteTarget(c)}
-                        className="p-1.5 rounded-md hover:bg-red-50 text-red-500"
-                        title="Delete"
-                      >
-                        <Trash2 size={15} />
-                      </button>
+                <div key={c.id} className="p-4 flex flex-col gap-3">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <p className="font-medium text-ink">{c.caseNumber}</p>
+                      <p className="text-xs text-muted truncate">{c.title}</p>
                     </div>
-                  </TD>
-                </TR>
+                    <StatusBadge status={c.status} />
+                  </div>
+                  <div className="text-xs text-muted flex flex-col gap-1">
+                    <p><span className="text-ink/70 font-medium">Client:</span> {c.clientName}</p>
+                    <p><span className="text-ink/70 font-medium">Court:</span> {c.court}</p>
+                    <p><span className="text-ink/70 font-medium">Type:</span> {c.caseType}</p>
+                    <p>
+                      <span className="text-ink/70 font-medium">Next Hearing:</span>{" "}
+                      {c.nextHearing ? format(parseISO(c.nextHearing), "d MMM yyyy") : "—"}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 pt-1">
+                    <button
+                      onClick={() => navigate(`/cases/${c.id}`)}
+                      className="flex-1 flex items-center justify-center gap-1.5 p-2 rounded-md border border-border hover:bg-navy-50 text-navy-700 text-xs font-medium"
+                    >
+                      <Eye size={14} /> View
+                    </button>
+                    <button
+                      onClick={() => navigate(`/cases/${c.id}?edit=true`)}
+                      className="flex-1 flex items-center justify-center gap-1.5 p-2 rounded-md border border-border hover:bg-navy-50 text-navy-700 text-xs font-medium"
+                    >
+                      <Pencil size={14} /> Edit
+                    </button>
+                    <button
+                      onClick={() => setDeleteTarget(c)}
+                      className="p-2 rounded-md border border-border hover:bg-red-50 text-red-500"
+                      title="Delete"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
+                </div>
               ))}
-            </TBody>
-          </Table>
+            </div>
+
+            {/* Desktop table */}
+            <div className="hidden sm:block">
+              <Table>
+                <THead>
+                  <TR>
+                    <TH>Case Number</TH>
+                    <TH>Client</TH>
+                    <TH>Court</TH>
+                    <TH>Case Type</TH>
+                    <TH>Status</TH>
+                    <TH>Next Hearing</TH>
+                    <TH className="text-right">Actions</TH>
+                  </TR>
+                </THead>
+                <TBody>
+                  {filtered.map((c) => (
+                    <TR key={c.id}>
+                      <TD>
+                        <p className="font-medium text-ink">{c.caseNumber}</p>
+                        <p className="text-xs text-muted truncate max-w-[200px]">{c.title}</p>
+                      </TD>
+                      <TD className="text-muted">{c.clientName}</TD>
+                      <TD className="text-muted">{c.court}</TD>
+                      <TD className="text-muted">{c.caseType}</TD>
+                      <TD><StatusBadge status={c.status} /></TD>
+                      <TD className="text-muted">
+                        {c.nextHearing ? format(parseISO(c.nextHearing), "d MMM yyyy") : "—"}
+                      </TD>
+                      <TD>
+                        <div className="flex items-center justify-end gap-1">
+                          <button
+                            onClick={() => navigate(`/cases/${c.id}`)}
+                            className="p-1.5 rounded-md hover:bg-navy-50 text-navy-700"
+                            title="View"
+                          >
+                            <Eye size={15} />
+                          </button>
+                          <button
+                            onClick={() => navigate(`/cases/${c.id}?edit=true`)}
+                            className="p-1.5 rounded-md hover:bg-navy-50 text-navy-700"
+                            title="Edit"
+                          >
+                            <Pencil size={15} />
+                          </button>
+                          <button
+                            onClick={() => setDeleteTarget(c)}
+                            className="p-1.5 rounded-md hover:bg-red-50 text-red-500"
+                            title="Delete"
+                          >
+                            <Trash2 size={15} />
+                          </button>
+                        </div>
+                      </TD>
+                    </TR>
+                  ))}
+                </TBody>
+              </Table>
+            </div>
+          </>
         )}
       </Card>
 
